@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "Usuario")
+@Table(name = "Users")
 public abstract class UserSchema extends AbstractEntitySchema<Long> {
 
     @NotBlank
