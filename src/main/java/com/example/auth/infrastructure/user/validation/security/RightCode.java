@@ -1,4 +1,4 @@
-package com.example.auth.infrastructure.user.validation.formats;
+package com.example.auth.infrastructure.user.validation.security;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -8,11 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = NameValidator.class)
+@Constraint(validatedBy = RightCodeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Name {
-  String message() default "Input a valid name.";
+public @interface RightCode {
+  String message() default "The code isn't valid.";
 
   Class<?>[] groups() default {};
 

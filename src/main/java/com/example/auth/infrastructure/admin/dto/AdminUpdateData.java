@@ -1,6 +1,6 @@
 package com.example.auth.infrastructure.admin.dto;
 
-import com.example.auth.infrastructure.user.validation.formats.Name;
+import com.example.auth.infrastructure.user.validation.formats.RightName;
 import com.example.auth.infrastructure.user.validation.unique.UniqueEmail;
 import com.example.auth.infrastructure.user.validation.unique.UniqueUsername;
 import com.example.auth.usecase.admin.dto.IAdminUpdateData;
@@ -13,7 +13,7 @@ public record AdminUpdateData(
 
         String password,
 
-        @Name(message = "{Name.user.name}")
+        @RightName(message = "{Name.user.name}")
         String name,
 
         @UniqueEmail(message = "{Unique.user.email}")

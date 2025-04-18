@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NameValidator implements ConstraintValidator<Name, String> {
+public class RightNameValidator implements ConstraintValidator<RightName, String> {
 
   @Override
   public boolean isValid(String name, ConstraintValidatorContext context) {
