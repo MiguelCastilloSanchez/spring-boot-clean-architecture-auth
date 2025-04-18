@@ -17,7 +17,7 @@ public class DeleteAdminController {
     @Autowired
     private DeleteAdminUseCase deleteAdminUserCase;
 
-    @DeleteMapping("/admins/{id}")
+    @DeleteMapping("/admin/{id}")
     @ResponseStatus(HttpStatus.OK)
     public AdminPublicData deleteAdmin(@PathVariable Long id) throws AdminNotFoundException {
         return new AdminPublicData(deleteAdminUserCase.execute(id));

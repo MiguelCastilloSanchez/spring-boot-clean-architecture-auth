@@ -6,17 +6,27 @@ import com.example.auth.infrastructure.user.validation.unique.UniqueUsername;
 import com.example.auth.usecase.admin.dto.IAdminUpdateData;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 public record AdminUpdateData(
-        @UniqueUsername(message = "{Unique.user.username}")
+
+        // If a field is not provided, it will be considered valid for size validation
+        
+        @Size(min = 4, max = 20)
+        @UniqueUsername(message = "{unique.user.username}")
         String username,
 
+        @Size(min = 8, max = 64)
         String password,
 
-        @RightName(message = "{Name.user.name}")
+        @Size(min = 2, max = 60)
+        @RightName(message = "{name.user.name}")
         String name,
 
-        @UniqueEmail(message = "{Unique.user.email}")
+        @Size(min = 3, max = 40)
         @Email
-        String email) implements IAdminUpdateData {
+        @UniqueEmail(message = "{unique.user.email}")
+        String email
+        
+        ) implements IAdminUpdateData {
 }

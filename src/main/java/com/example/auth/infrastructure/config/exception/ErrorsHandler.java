@@ -25,24 +25,24 @@ public class ErrorsHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity handleError400(MethodArgumentNotValidException ex) {
-    List<FieldError> erros = ex.getFieldErrors();
+    List<FieldError> errors = ex.getFieldErrors();
 
-    List<ValidationErrorData> messages = new ArrayList<>(erros.size());
+    List<ValidationErrorData> messages = new ArrayList<>(errors.size());
 
-    erros.forEach(erro -> {
-      // Se houver mais de uma mensagem de erro para o mesmo campo, adiciona a mensagem na lista de mensagens
-      if (messages.stream().anyMatch(dadosErroValidacao -> Objects.equals(dadosErroValidacao.field(), erro.getField()))) {
-        ValidationErrorData dados = messages.stream().filter(dadosErroValidacao ->
-                Objects.equals(dadosErroValidacao.field(), erro.getField())
+    errors.forEach(error -> {
+      // If there's more than one error message for a field, the errors will be listed in the message
+      if (messages.stream().anyMatch(dataErrorValidation -> Objects.equals(dataErrorValidation.field(), error.getField()))) {
+        ValidationErrorData data = messages.stream().filter(dataErrorValidation ->
+                Objects.equals(dataErrorValidation.field(), error.getField())
         ).findFirst().get();
 
-        messages.remove(dados);
-        List<String> mensagens = dados.messages();
-        String erroMessage = erro.getDefaultMessage();
-        mensagens.add(erroMessage);
-        messages.add(new ValidationErrorData(erro.getField(), mensagens));
+        messages.remove(data);
+        List<String> mensagens = data.messages();
+        String errorMessage = error.getDefaultMessage();
+        mensagens.add(errorMessage);
+        messages.add(new ValidationErrorData(error.getField(), mensagens));
       } else {
-        messages.add(new ValidationErrorData(erro));
+        messages.add(new ValidationErrorData(error));
       }
     });
 
@@ -55,21 +55,21 @@ public class ErrorsHandler {
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity handleValidationError(ConstraintViolationException ex) {
+  public ResponseEntity handleValidationerror(ConstraintViolationException ex) {
 
     Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
     List<ValidationErrorData> messages = new ArrayList<>(constraintViolations.size());
 
     constraintViolations.forEach(constraintViolation -> {
-      // Se houver mais de uma mensagem de erro para o mesmo campo, adiciona a mensagem na lista de mensagens
-      if (messages.stream().anyMatch(dadosErroValidacao -> Objects.equals(dadosErroValidacao.field(), constraintViolation.getPropertyPath().toString()))) {
-        ValidationErrorData dados = messages.stream().filter(dadosErroValidacao ->
-                Objects.equals(dadosErroValidacao.field(), constraintViolation.getPropertyPath().toString())
+      // If there's more than one error message for a field, the errors will be listed in the message
+      if (messages.stream().anyMatch(dataErrorValidation -> Objects.equals(dataErrorValidation.field(), constraintViolation.getPropertyPath().toString()))) {
+        ValidationErrorData data = messages.stream().filter(dataErrorValidation ->
+                Objects.equals(dataErrorValidation.field(), constraintViolation.getPropertyPath().toString())
         ).findFirst().get();
-        messages.remove(dados);
+        messages.remove(data);
 
-        List<String> mensagens = dados.messages();
+        List<String> mensagens = data.messages();
         mensagens.add(constraintViolation.getMessage());
         messages.add(new ValidationErrorData(constraintViolation.getPropertyPath().toString(),
                 mensagens));
@@ -84,17 +84,17 @@ public class ErrorsHandler {
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity handleError500(Exception ex) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + ex.getLocalizedMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error: " + ex.getLocalizedMessage());
   }
 
   @ExceptionHandler(JpaSystemException.class)
   public ResponseEntity handleError500(JpaSystemException ex) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + ex.getLocalizedMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error: " + ex.getLocalizedMessage());
   }
 
   private record ValidationErrorData(String field, List<String> messages) {
-    public ValidationErrorData(FieldError erro) {
-      this(erro.getField(), new ArrayList<>(Collections.singletonList(erro.getDefaultMessage())));
+    public ValidationErrorData(FieldError error) {
+      this(error.getField(), new ArrayList<>(Collections.singletonList(error.getDefaultMessage())));
     }
   }
 

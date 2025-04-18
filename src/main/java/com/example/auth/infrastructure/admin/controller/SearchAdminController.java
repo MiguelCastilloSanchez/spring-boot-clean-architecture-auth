@@ -18,7 +18,7 @@ public class SearchAdminController {
     @Autowired
     private SearchAdminUseCase searchAdminUseCase;
 
-    @GetMapping("/admins")
+    @GetMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
     public List<AdminPublicData> searchAdmin() {
         List<Admin> admins = this.searchAdminUseCase.execute();

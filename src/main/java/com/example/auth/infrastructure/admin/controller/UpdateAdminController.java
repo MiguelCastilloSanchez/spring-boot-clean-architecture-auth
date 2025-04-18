@@ -17,10 +17,10 @@ public class UpdateAdminController {
     @Autowired
     private UpdateAdminUseCase updateAdminUseCase;
 
-    @PutMapping("/admins/{id}")
+    @PutMapping("/admin/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AdminPublicData updateAdmin(@PathVariable Long id, @Valid @RequestBody AdminUpdateData dados) throws AdminNotFoundException {
-        return new AdminPublicData(updateAdminUseCase.execute(id, dados));
+    public AdminPublicData updateAdmin(@PathVariable Long id, @Valid @RequestBody AdminUpdateData data) throws AdminNotFoundException {
+        return new AdminPublicData(updateAdminUseCase.execute(id, data));
     }
 
 }

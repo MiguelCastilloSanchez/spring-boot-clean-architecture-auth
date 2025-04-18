@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RightName {
-  String message() default "Input a valid name.";
+  String message() default "The name is not valid.";
 
   Class<?>[] groups() default {};
 

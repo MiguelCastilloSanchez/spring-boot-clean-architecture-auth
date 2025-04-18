@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RightCode {
-  String message() default "The code isn't valid.";
+  String message() default "The code is not valid.";
 
   Class<?>[] groups() default {};
 

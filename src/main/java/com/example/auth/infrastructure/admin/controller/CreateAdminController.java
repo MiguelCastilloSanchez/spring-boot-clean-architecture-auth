@@ -19,10 +19,10 @@ public class CreateAdminController {
     @Autowired
     private CreateAdminUseCase createAdminUseCase;
 
-    @PostMapping("/admins")
+    @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
-    public AdminPublicData createAdmin(@Valid @RequestBody AdminRegistrationData dados) {
-        return new AdminPublicData(createAdminUseCase.execute(dados));
+    public AdminPublicData createAdmin(@Valid @RequestBody AdminRegistrationData data) {
+        return new AdminPublicData(createAdminUseCase.execute(data));
     }
 
 }

@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidatorContext;
 @Component
 public class RightCodeValidator implements ConstraintValidator<RightCode, String>{
 
-    @Value("${security.admins.code}")
+    @Value("${security.admin.code}")
     private String expectedCode;
 
     @Override
@@ -17,8 +17,9 @@ public class RightCodeValidator implements ConstraintValidator<RightCode, String
 
         if(code.equals(expectedCode)){
             return true;
+        }else{
+            return false;
         }
         
-        return false;
     }
 }
