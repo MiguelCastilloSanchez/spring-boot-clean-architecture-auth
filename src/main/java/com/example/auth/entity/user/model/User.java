@@ -2,7 +2,7 @@ package com.example.auth.entity.user.model;
 
 import com.example.auth.entity.AbstractEntity;
 
-public abstract class User extends AbstractEntity<Long> {
+public class User extends AbstractEntity<Long> {
 
   private String username;
   private String email;

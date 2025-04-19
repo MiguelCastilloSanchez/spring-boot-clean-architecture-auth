@@ -1,5 +1,12 @@
 package com.example.auth.infrastructure.config.db.schema;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import com.example.auth.entity.admin.model.Admin;
 import jakarta.persistence.*;
 
@@ -29,4 +36,12 @@ public class AdminSchema extends UserSchema {
 
     return admin;
   }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return roles;
+    }
 }
