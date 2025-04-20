@@ -22,6 +22,6 @@ public class LoginUseCase {
 
         User user = userGateway.findByUsername(data.username()).orElseThrow(UserNotFoundException::new);
 
-        return this.authenticationGateway.authenticate(user);
+        return this.authenticationGateway.authenticate(user, data.password());
     }
 }

@@ -20,13 +20,15 @@ public class AuthenticationServiceGateway implements AuthenticationGateway{
     private AuthenticationManager authenticationManager;
 
     @Override
-    public String authenticate(User user) {
-
-        UserSchema userSchema = new UserSchema(user.getUsername(), user.getPassword(), user.getName(), user.getEmail());
-
-        System.out.println(userSchema.getEmail() + "\n" + userSchema.getPassword());
-        var credentials = new UsernamePasswordAuthenticationToken(userSchema.getEmail(), userSchema.getPassword());
-        System.out.println(credentials.toString());
+    public String authenticate(User user, String password) {
+        UserSchema userSchema = new UserSchema(
+            user.getUsername(), 
+            user.getPassword(), 
+            user.getName(), 
+            user.getEmail(), 
+            user.getRole()
+        );
+        var credentials = new UsernamePasswordAuthenticationToken(userSchema.getUsername(), password);
         var auth = this.authenticationManager.authenticate(credentials);
         var token = tokenService.generateToken((UserSchema) auth.getPrincipal());
         return token;
