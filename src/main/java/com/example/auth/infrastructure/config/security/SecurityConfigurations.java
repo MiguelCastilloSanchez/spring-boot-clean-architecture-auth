@@ -29,6 +29,8 @@ public class SecurityConfigurations {
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/admin").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/admin").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/admin/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -19,6 +19,7 @@ public class LoginUseCase {
     private AuthenticationGateway authenticationGateway;
 
     public String execute(IAuthenticationData data) throws UserNotFoundException{
+
         User user = userGateway.findByUsername(data.username()).orElseThrow(UserNotFoundException::new);
 
         return this.authenticationGateway.authenticate(user);

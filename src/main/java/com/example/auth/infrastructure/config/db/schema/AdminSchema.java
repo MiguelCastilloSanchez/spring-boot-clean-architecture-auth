@@ -37,11 +37,11 @@ public class AdminSchema extends UserSchema {
     return admin;
   }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return roles;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+      List<SimpleGrantedAuthority> roles = new ArrayList<>();
+      roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+      roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+      return roles;
+  }
 }
