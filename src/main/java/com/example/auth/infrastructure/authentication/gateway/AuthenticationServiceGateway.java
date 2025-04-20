@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 
-import com.example.auth.entity.user.model.User;
 import com.example.auth.infrastructure.config.db.schema.UserSchema;
 import com.example.auth.infrastructure.config.security.TokenService;
 import com.example.auth.usecase.authentication.gateway.AuthenticationGateway;
@@ -20,15 +19,8 @@ public class AuthenticationServiceGateway implements AuthenticationGateway{
     private AuthenticationManager authenticationManager;
 
     @Override
-    public String authenticate(User user, String password) {
-        UserSchema userSchema = new UserSchema(
-            user.getUsername(), 
-            user.getPassword(), 
-            user.getName(), 
-            user.getEmail(), 
-            user.getRole()
-        );
-        var credentials = new UsernamePasswordAuthenticationToken(userSchema.getUsername(), password);
+    public String authenticate(String username, String password) {
+        var credentials = new UsernamePasswordAuthenticationToken(username, password);
         var auth = this.authenticationManager.authenticate(credentials);
         var token = tokenService.generateToken((UserSchema) auth.getPrincipal());
         return token;
